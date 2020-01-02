@@ -12,7 +12,7 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   root: {
     width: '100%',
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
     overflowX: "auto"
   },
   table: {
@@ -20,37 +20,26 @@ const styles = theme => ({
   }
 })
 
-const customer = [
-  {
-    'id' : 1,
-    'image' : 'https://placeimg.com/64/64/1', // 랜덤으로 이미지를 보여주는 기능을 수행하는 사이트 (64x64로 정의)
-    'name' : '이순신',
-    'birthday' : '960101',
-    'gender' : '남자',
-    'job' : '대학생'
-  },
-  {
-    'id' : 2,
-    'image' : 'https://placeimg.com/64/64/2',
-    'name' : '홍길동',
-    'birthday' : '941212',
-    'gender' : '남자',
-    'job' : '프로그래머'
-  },
-  {
-    'id' : 3,
-    'image' : 'https://placeimg.com/64/64/3', 
-    'name' : '일지매',
-    'birthday' : '901010',
-    'gender' : '남자',
-    'job' : '도둑'
-  }
-]
-
-
 class App extends Component {
+
+  state = { // state : 컴포넌트 내에서 변경될 수 있는 변수를 처리하고자 할때 사용
+    customers: ""
+  }
+
+  componentDidMount() {
+    this.callApi()
+      .then(res => this.setState({customers: res}))
+      .catch(err => console.log(err));
+  }
+
+  callApi = async () => {
+    const response = await fetch('api/customers');
+    const body = await response.json();
+    return body;
+  }
+
   render() {
-    const { classes } = this.props;
+    const { classes } = this.props; // props : 변경될 수 없는 데이터 명시
     return (
       <Paper className={classes.root}>
         <Table className={classes.table}>
@@ -64,7 +53,7 @@ class App extends Component {
           </TableHead>
           <TableBody>
             {
-              customer.map(c => {
+              this.state.customers ? this.state.customers.map(c => {
                 return (
                 <Customer
                   key={c.id} // map을 사용할 때는 key를 사용해야만 한다.
@@ -75,7 +64,7 @@ class App extends Component {
                   job={c.job}
                 />
                 );
-              })
+              }) : "" 
             }
           </TableBody>
         </Table>
