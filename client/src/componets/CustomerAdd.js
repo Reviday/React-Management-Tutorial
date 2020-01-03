@@ -24,6 +24,7 @@ class CustomerAdd extends React.Component {
         this.addCustomer()
             .then((response) => {
                 console.log(response.data);
+                this.props.stateRefresh();
             })
         this.setState({
             file: null,
@@ -74,7 +75,7 @@ class CustomerAdd extends React.Component {
                 생년월일: <input type="text" name="birthday" value={this.state.birthday} onChange={this.handleValueChange}/><br/>
                 성별: <input type="text" name="gender" value={this.state.gender} onChange={this.handleValueChange}/><br/>
                 직업: <input type="text" name="job" value={this.state.job} onChange={this.handleValueChange}/><br/>
-                <button type="submit" onClick={this.handleFormSubmit}>추가하기</button>
+                <button type="submit">추가하기</button>
             </form> 
         )
     }

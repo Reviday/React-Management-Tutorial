@@ -47,9 +47,28 @@ const styles = theme => ({
 
 class App extends Component {
 
-  state = { // state : 컴포넌트 내에서 변경될 수 있는 변수를 처리하고자 할때 사용
-    customers: "",
-    completed: 0
+  // state = { // state : 컴포넌트 내에서 변경될 수 있는 변수를 처리하고자 할때 사용
+  //   customers: "",
+  //   completed: 0
+  // }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      customers: '',
+      completed: 0
+    }
+    this.stateRefresh = this.stateRefresh.bind(this);
+  }
+
+  stateRefresh = () => {
+    this.setState({
+      customers: '',
+      completed: 0
+    })
+    this.callApi()
+      .then(res => this.setState({customers: res}))
+      .catch(err => console.log(err));
   }
 
   componentDidMount() {
@@ -108,7 +127,7 @@ class App extends Component {
             </TableBody>
           </Table>
         </Paper>
-        <CustomerAdd/>
+        <CustomerAdd stateRefresh={this.stateRefresh}/>
       </div>
     );
   }

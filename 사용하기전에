@@ -1,0 +1,5 @@
+1. 처음 레포지토리를 다운로드 받았을때, 2번의 npm i를 실시.(기본 위치/client 폴더 위치)
+   (./ 위치에서 npm i로 모듈이 제대로 안받아질 수가 있다. 손수 npm으로 install 해주자..)
+
+2. ./ 기본위치에 database.json 파일이 필요하다. 양식은 aws-rds-mysql.txt 에 있다.
+3. 해당 레포지토리는 mysql DB를 사용한다.
