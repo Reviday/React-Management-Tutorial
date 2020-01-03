@@ -13,19 +13,32 @@ class CustomerAdd extends React.Component {
             job: '',
             fileName: ''
         }
+        this.handleFormSubmit = this.handleFormSubmit.bind(this)
+        this.handleFileChange = this.handleFileChange.bind(this)
+        this.handleValueChange = this.handleValueChange.bind(this)
+        this.addCustomer = this.addCustomer.bind(this)
     }
 
     handleFormSubmit = (e) => {
-        e.prventDefault()
+        e.preventDefault()
         this.addCustomer()
             .then((response) => {
                 console.log(response.data);
             })
+        this.setState({
+            file: null,
+            userName: '',
+            birthday: '',
+            gender: '',
+            job: '',
+            fileName: ''
+        })
+        // window.location.reload();
     }
 
     handleFileChange = (e) => {
         this.setState({
-            tile: e.target.files[0],
+            file: e.target.files[0],
             fileName: e.target.value
         })
     }
@@ -37,7 +50,7 @@ class CustomerAdd extends React.Component {
     }
 
     addCustomer = () => {
-        const url = 'api/customers';
+        const url = '/api/customers';
         const formData = new FormData();
         formData.append('image', this.state.file);
         formData.append('name', this.state.userName);
@@ -61,7 +74,7 @@ class CustomerAdd extends React.Component {
                 생년월일: <input type="text" name="birthday" value={this.state.birthday} onChange={this.handleValueChange}/><br/>
                 성별: <input type="text" name="gender" value={this.state.gender} onChange={this.handleValueChange}/><br/>
                 직업: <input type="text" name="job" value={this.state.job} onChange={this.handleValueChange}/><br/>
-                <button type="submit">추가하기</button>
+                <button type="submit" onClick={this.handleFormSubmit}>추가하기</button>
             </form> 
         )
     }
