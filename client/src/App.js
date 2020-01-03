@@ -90,8 +90,9 @@ class App extends Component {
                   key={c.id} // map을 사용할 때는 key를 사용해야만 한다.
                   id={c.id}
                   image={c.image}
+                  name={c.name}
                   birthday={c.birthday}
-                  gender={c.birthday}
+                  gender={c.gender}
                   job={c.job}
                 />
                 );
